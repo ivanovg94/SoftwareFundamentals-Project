@@ -25,5 +25,10 @@ namespace EventSpot.Models
         public string OrganizerId { get; set; }
 
         public ApplicationUser Organizer { get; set; }
+
+        public bool IsOrganizer(string name)
+        {
+            return this.Organizer.UserName.Equals(name);
+        }
     }
 }

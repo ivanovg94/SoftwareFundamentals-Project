@@ -59,6 +59,7 @@ namespace EventSpot.Controllers
 
         //
         //GET: Event/Create
+        [Authorize]
         public ActionResult Create()
         {
 
@@ -67,6 +68,7 @@ namespace EventSpot.Controllers
 
         //
         //POST: Event/Create
+        [Authorize]
         [HttpPost]
         public ActionResult Create(Event events)
         {
@@ -111,6 +113,10 @@ namespace EventSpot.Controllers
                     .Include(a => a.Organizer)
                     .First();
 
+                if (!IsOrganizerAuthorizedToEdit(events))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                }
 
                 if (events == null)
                 {
@@ -149,6 +155,7 @@ namespace EventSpot.Controllers
 
         //
         //Get: Event/Edit
+        
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -163,7 +170,11 @@ namespace EventSpot.Controllers
                     .Where(a => a.Id == id)
                     .First();
 
-                //Chek if event exists
+                if (! IsOrganizerAuthorizedToEdit(events))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                }
+                //Check if event exists
                 if (events == null)
                 {
                     return HttpNotFound();
@@ -209,6 +220,13 @@ namespace EventSpot.Controllers
 
             }
             return View(model);
+        }
+      private bool IsOrganizerAuthorizedToEdit(Event events)
+        {
+            bool isAdmin = this.User.IsInRole("Admin");
+            bool isOrganizer = events.IsOrganizer(this.User.Identity.Name);
+
+            return isAdmin || isOrganizer;
         }
     }
 }
