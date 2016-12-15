@@ -17,7 +17,8 @@ namespace EventSpot.Models
         public string EventName { get; set; }
 
         [Required]
-        public string EventDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime EventDate { get; set; }
 
         public string EventDescription { get; set; }
 
