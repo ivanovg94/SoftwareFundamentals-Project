@@ -94,5 +94,121 @@ namespace EventSpot.Controllers
 
             return View(events);
         }
+
+        //
+        //GET: Event/Delete
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            using (var database = new EventSpotDbContext())
+            {
+                var events = database.Events
+                    .Where(a => a.Id == id)
+                    .Include(a => a.Organizer)
+                    .First();
+
+
+                if (events == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(events);
+            }
+        }
+
+        //
+        //POST: Event/Delete
+        [HttpPost]
+        [ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int? id)
+        {
+            using (var database = new EventSpotDbContext())
+            {
+                var events = database.Events
+                    .Where(a => a.Id == id)
+                    .Include(a => a.Organizer)
+                    .First();
+
+
+                if (events == null)
+                {
+                    return HttpNotFound();
+                }
+
+                database.Events.Remove(events);
+                database.SaveChanges();
+
+                return RedirectToAction("Main");
+            }
+
+        }
+
+        //
+        //Get: Event/Edit
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            using (var database = new EventSpotDbContext())
+            {
+                //Get event from database
+                var events = database.Events
+                    .Where(a => a.Id == id)
+                    .First();
+
+                //Chek if event exists
+                if (events == null)
+                {
+                    return HttpNotFound();
+                }
+
+                //Create the view model
+                var model = new EventViewModel();
+                model.Id = events.Id;
+                model.EventName = events.EventName;
+                model.EventDate = events.EventDate;
+                model.EventDescription = events.EventDescription;
+
+                //Pass the view model to view
+                return View(model);
+            }
+
+
+        }
+        //
+        //POST: Event/Edit
+        [HttpPost]
+        public ActionResult Edit(EventViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                using (var database = new EventSpotDbContext())
+                {
+                    //Get article from database
+                    var events = database.Events
+                        .FirstOrDefault(a => a.Id == model.Id);
+
+                    events.EventName = model.EventName;
+                    events.EventDate = model.EventDate;
+                    events.EventDescription = model.EventDescription;
+                    
+
+                    database.Entry(events).State = EntityState.Modified;
+                    database.SaveChanges();
+
+                    return RedirectToAction("Main");
+                }
+
+            }
+            return View(model);
+        }
     }
 }
