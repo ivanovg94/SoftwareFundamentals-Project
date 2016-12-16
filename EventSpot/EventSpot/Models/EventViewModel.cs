@@ -18,6 +18,9 @@ namespace EventSpot.Models
         [Required]
         public DateTime EventDate { get; set; }
 
+        [Required]
+        public string StartTime { get; set; }
+
         public string EventDescription { get; set; }
 
         public string OrganizerId { get; set; }
