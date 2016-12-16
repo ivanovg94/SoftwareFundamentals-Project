@@ -155,7 +155,7 @@ namespace EventSpot.Controllers
 
         //
         //Get: Event/Edit
-        
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -168,9 +168,10 @@ namespace EventSpot.Controllers
                 //Get event from database
                 var events = database.Events
                     .Where(a => a.Id == id)
+                    .Include(a => a.Organizer)
                     .First();
 
-                if (! IsOrganizerAuthorizedToEdit(events))
+                if (!IsOrganizerAuthorizedToEdit(events))
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
                 }
@@ -210,7 +211,7 @@ namespace EventSpot.Controllers
                     events.EventName = model.EventName;
                     events.EventDate = model.EventDate;
                     events.EventDescription = model.EventDescription;
-                    
+
 
                     database.Entry(events).State = EntityState.Modified;
                     database.SaveChanges();
@@ -221,7 +222,7 @@ namespace EventSpot.Controllers
             }
             return View(model);
         }
-      private bool IsOrganizerAuthorizedToEdit(Event events)
+        private bool IsOrganizerAuthorizedToEdit(Event events)
         {
             bool isAdmin = this.User.IsInRole("Admin");
             bool isOrganizer = events.IsOrganizer(this.User.Identity.Name);
