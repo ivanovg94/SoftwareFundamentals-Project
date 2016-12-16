@@ -21,5 +21,8 @@ namespace EventSpot.Models
         public string EventDescription { get; set; }
 
         public string OrganizerId { get; set; }
+
+        public byte EventImage { get; set; }
+
     }
 }

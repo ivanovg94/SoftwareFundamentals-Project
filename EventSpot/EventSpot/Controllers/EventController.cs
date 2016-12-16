@@ -6,6 +6,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using EventSpot.Models;
+using System.Numerics;
+using static EventSpot.Models.Event;
 
 namespace EventSpot.Controllers
 {
@@ -74,6 +76,24 @@ namespace EventSpot.Controllers
         {
             if (ModelState.IsValid)
             {
+            //    // check image
+            //    if (model.EventPicture != null)
+            //    {
+            //        // check length's image
+            //        if (model.EventPicture.ContentLength > (4 * 1024 * 1024))
+            //        {
+            //            ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
+            //            return View();
+            //        }
+            //        // check format image
+            //        if (!(model.EventPicture.ContentType == "image/jpg"))
+            //        {
+            //            ModelState.AddModelError("CustomError", "Image must be in jpg format.");
+            //        }
+            //    }
+            //byte[] dataImage = new byte[model.EventPicture.ContentLength];
+            //model.EventPicture.InputStream.Read(dataImage, 0, model.EventPicture.ContentLength);
+
                 //insert event in DB 
                 using (var database = new EventSpotDbContext())
                 {
@@ -83,8 +103,10 @@ namespace EventSpot.Controllers
                         .First()
                         .Id;
 
+                    
                     //Set Event Organizer
                     events.OrganizerId = organizerId;
+
 
                     //Save event in DB
                     database.Events.Add(events);
