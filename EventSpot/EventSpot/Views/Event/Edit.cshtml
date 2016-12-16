@@ -5,7 +5,7 @@
 
 <div class="container">
     <div class="well">
-        <h2>Create Article</h2>
+        <h2>Edit Event</h2>
         @using (Html.BeginForm("Edit", "Event", FormMethod.Post, new { @class = "form-horizontal" }))
         {
             @Html.AntiForgeryToken()
@@ -30,12 +30,12 @@
                 </div>
             </div>
 
-            @*<div class="form-group">
-                @Html.LabelFor(m => m.EventDate, new { @class = "control-label col-sm-4" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.StartTime, new { @class = "control-label col-sm-4" })
                 <div class="col-sm-4">
-                    @Html.TextBoxFor(m => m.EventDate, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.StartTime)
                 </div>
-            </div>*@
+            </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.EventDescription, new { @class = "control-label col-sm-4" })

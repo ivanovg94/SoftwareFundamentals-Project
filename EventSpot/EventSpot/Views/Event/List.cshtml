@@ -17,7 +17,8 @@
                                   @Html.ActionLink(@events.EventName, "Details", "Event", new { @id = events.Id }, null)
                             </h3>
                             <h5>
-                                @events.EventDate
+                                @events.EventDate.ToShortDateString()
+                                @events.StartTime
                             </h5>
                         </header>
                         <p>

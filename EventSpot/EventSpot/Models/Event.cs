@@ -18,7 +18,13 @@ namespace EventSpot.Models
 
         [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EventDate { get; set; }
+
+
+        [Required]
+        [RegularExpression(@"^(0[1-9]|1[0-2]):[0-5][0-9] (am|pm|AM|PM)$", ErrorMessage = "Invalid Time.")]
+        public string StartTime { get; set; }
 
         public string EventDescription { get; set; }
 

@@ -11,7 +11,8 @@
                 @Model.EventName
             </h2>
             <h5>
-                @Model.EventDate
+                @Model.EventDate.ToShortDateString()
+                @Model.StartTime
             </h5>
         </header>
         
