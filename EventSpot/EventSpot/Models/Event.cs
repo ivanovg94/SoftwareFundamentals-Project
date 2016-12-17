@@ -17,7 +17,14 @@ namespace EventSpot.Models
         public string EventName { get; set; }
 
         [Required]
-        public string EventDate { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime EventDate { get; set; }
+
+
+        [Required]
+        [RegularExpression(@"^(0[1-9]|1[0-2]):[0-5][0-9] (am|pm|AM|PM)$", ErrorMessage = "Invalid Time.")]
+        public string StartTime { get; set; }
 
         public string EventDescription { get; set; }
 
@@ -26,5 +33,16 @@ namespace EventSpot.Models
 
         public ApplicationUser Organizer { get; set; }
 
+        public bool IsOrganizer(string name)
+        {
+            return this.Organizer.UserName.Equals(name);
+        }
+        
+        //public byte EventImage { get; set; }
+
+        //public class ExtendedIdentityModels : EventViewModel
+        //{
+        //    public HttpPostedFileBase EventPicture { get; set; }
+        //}
     }
 }

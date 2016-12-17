@@ -3,32 +3,43 @@
     ViewBag.Title = "List";
 }
 
+<br />
 <div class="container">
     <div class="row">
         @foreach (var events in Model)
         {
+
             <div class="col-sm-6">
-                <article>
-                    <header>
-                        <h2>
-                            @Html.ActionLink(@events.EventName, "Details", "Event", new { @id = events.Id }, null)
-                        </h2>
-                        <h5>
-                            @events.EventDate
-                        </h5>
-                    </header>
-                    <p>
-                        @events.EventDescription
-                    </p>
-                    <footer class="pull-left">
-                        <small class="author">
-                            Organized by: @events.Organizer.FullName
-                        </small>
-                    </footer>
-                </article>
+                <div class="well">
+                    <article>
+                        <header>
+                            <h3>
+                                  @Html.ActionLink(@events.EventName, "Details", "Event", new { @id = events.Id }, null)
+                            </h3>
+                            <h5>
+                                @events.EventDate.ToShortDateString()
+                                @events.StartTime
+                            </h5>
+                        </header>
+                        <p>
+                            @events.EventDescription
+                        </p>
+                        <footer>
+                            <div class="pull-left">
+                            <small class="author">
+                                Organized by: @events.Organizer.FullName
+                            </small>
+                                </div>
+                            <div class="pull-right">
+                                @Html.ActionLink("Details", "Details", "Event", new { @id = events.Id }, new { @class = "btn btn-default btn-xs" })
+                            </div>
+                        </footer>
+                    </article>
+                    <br />
+                </div>
             </div>
         }
     </div>
 </div>
-<hr />
+
 

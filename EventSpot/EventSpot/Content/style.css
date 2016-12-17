@@ -1,0 +1,20 @@
+﻿.navbar-inverse {
+  background-color:#14B0C7;
+  border-color: green;
+}
+.navbar-inverse .navbar-nav > li > a {
+  color: #000000;
+}
+body {
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #77B300;
+ background-image: url(rainbow.jpg)
+}
+.well {
+    color: #77B300;
+}
+.jumbotron {
+    color:#14B0C7
+}

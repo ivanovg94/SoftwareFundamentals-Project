@@ -1,14 +1,14 @@
 namespace EventSpot.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using Models;
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
 
-    public sealed class Configuration : DbMigrationsConfiguration<EventSpot.Models.EventSpotDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<EventSpotDbContext>
     {
         public Configuration()
         {
@@ -17,20 +17,18 @@ namespace EventSpot.Migrations
             ContextKey = "EventSpot.Models.EventSpotDbContext";
         }
 
-        protected override void Seed(EventSpot.Models.EventSpotDbContext context)
+        protected override void Seed(EventSpotDbContext context)
         {
             if (!context.Roles.Any())
             {
                 this.CreateRole(context, "Admin");
-                this.CreateRole(context, "Organizer");
                 this.CreateRole(context, "User");
-
+                this.CreateRole(context, "Organizer");
             }
-
             if (!context.Users.Any())
             {
-                this.CreateUser(context, "admin@abv.bg", "Admin", "123");
-                this.SetRoleToUser(context, "admin@abv.bg", "Admin");
+                this.CreateUser(context, "admin@admin.com", "Admin", "123456");
+                this.SetRoleToUser(context, "admin@admin.com", "Admin");
             }
         }
 
@@ -60,14 +58,14 @@ namespace EventSpot.Migrations
             {
                 throw new Exception(string.Join(";", result.Errors));
             }
-
         }
-
         private void CreateUser(EventSpotDbContext context, string email, string fullName, string password)
         {
+            // Create user manager
             var userManager = new UserManager<ApplicationUser>(
-                 new UserStore<ApplicationUser>(context));
+                new UserStore<ApplicationUser>(context));
 
+            // Set user manager password validator
             userManager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
@@ -77,6 +75,7 @@ namespace EventSpot.Migrations
                 RequireUppercase = false,
             };
 
+            // Create user object
             var admin = new ApplicationUser
             {
                 UserName = email,
@@ -84,13 +83,14 @@ namespace EventSpot.Migrations
                 Email = email,
             };
 
+            // Create user
             var result = userManager.Create(admin, password);
 
+            // Validate result
             if (!result.Succeeded)
             {
                 throw new Exception(string.Join(";", result.Errors));
             }
         }
-
     }
 }

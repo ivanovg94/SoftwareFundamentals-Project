@@ -16,10 +16,16 @@ namespace EventSpot.Models
         public string EventName { get; set; }
 
         [Required]
-        public string EventDate { get; set; }
+        public DateTime EventDate { get; set; }
+
+        [Required]
+        public string StartTime { get; set; }
 
         public string EventDescription { get; set; }
 
         public string OrganizerId { get; set; }
+
+        public byte EventImage { get; set; }
+
     }
 }
