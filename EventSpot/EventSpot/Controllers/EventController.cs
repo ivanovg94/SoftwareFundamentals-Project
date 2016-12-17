@@ -6,6 +6,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using EventSpot.Models;
+using System.IO;
 
 namespace EventSpot.Controllers
 {
@@ -72,8 +73,11 @@ namespace EventSpot.Controllers
         [HttpPost]
         public ActionResult Create(Event events)
         {
+        
+
             if (ModelState.IsValid)
             {
+              
                 //insert event in DB 
                 using (var database = new EventSpotDbContext())
                 {
