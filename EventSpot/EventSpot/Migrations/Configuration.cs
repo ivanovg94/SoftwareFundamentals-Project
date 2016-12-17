@@ -22,7 +22,7 @@ namespace EventSpot.Migrations
             if (!context.Roles.Any())
             {
                 this.CreateRole(context, "Admin");
-                this.CreateRole(context, "User");
+                this.CreateRole(context, "Attendant");
                 this.CreateRole(context, "Organizer");
             }
             if (!context.Users.Any())
@@ -30,6 +30,7 @@ namespace EventSpot.Migrations
                 this.CreateUser(context, "admin@admin.com", "Admin", "123456");
                 this.SetRoleToUser(context, "admin@admin.com", "Admin");
             }
+      
         }
 
         private void SetRoleToUser(EventSpotDbContext context, string email, string role)
@@ -51,6 +52,25 @@ namespace EventSpot.Migrations
         {
             var roleManager = new RoleManager<IdentityRole>(
                 new RoleStore<IdentityRole>(context));
+
+
+            //// creating Creating Manager role    
+            //if (!roleManager.RoleExists("Organizer"))
+            //{
+            //    var role = new IdentityRole();
+            //    role.Name = "Organizer";
+            //    roleManager.Create(role);
+
+            //}
+
+            //// creating Creating Employee role    
+            //if (!roleManager.RoleExists("Attendant"))
+            //{
+            //    var role = new IdentityRole();
+            //    role.Name = "Attendant";
+            //    roleManager.Create(role);
+
+            //}
 
             var result = roleManager.Create(new IdentityRole(roleName));
 
@@ -91,6 +111,7 @@ namespace EventSpot.Migrations
             {
                 throw new Exception(string.Join(";", result.Errors));
             }
+
         }
     }
 }
