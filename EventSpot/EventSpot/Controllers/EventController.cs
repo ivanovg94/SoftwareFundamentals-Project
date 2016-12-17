@@ -6,7 +6,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using EventSpot.Models;
+<<<<<<< HEAD
 using System.IO;
+=======
+using System.Numerics;
+using static EventSpot.Models.Event;
+>>>>>>> 569c9b30eafd52d35221c6f6141de72e7aef1fdf
 
 namespace EventSpot.Controllers
 {
@@ -77,7 +82,6 @@ namespace EventSpot.Controllers
 
             if (ModelState.IsValid)
             {
-              
                 //insert event in DB 
                 using (var database = new EventSpotDbContext())
                 {
@@ -87,8 +91,10 @@ namespace EventSpot.Controllers
                         .First()
                         .Id;
 
+                    
                     //Set Event Organizer
                     events.OrganizerId = organizerId;
+
 
                     //Save event in DB
                     database.Events.Add(events);
