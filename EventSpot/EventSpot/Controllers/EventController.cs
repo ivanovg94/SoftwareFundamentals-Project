@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using EventSpot.Models;
 using System.Numerics;
 using static EventSpot.Models.Event;
 using System.IO;
 using System.Text;
+using System.Web;
+using System.IO;
+using Microsoft.AspNet.Identity.Owin;
+
 
 namespace EventSpot.Controllers
 {
@@ -80,6 +81,21 @@ namespace EventSpot.Controllers
           
             if (ModelState.IsValid)
             {
+
+                // To convert the user uploaded Photo as Byte Array before save to DB 
+                byte[] imageData = null;
+                if (Request.Files.Count > 0)
+                {
+                    HttpPostedFileBase poImgFile = Request.Files["Event"];
+
+                    using (var binary = new BinaryReader(poImgFile.InputStream))
+                    {
+                        imageData = binary.ReadBytes(poImgFile.ContentLength);
+                    }
+                }
+
+
+
                 //insert event in DB 
                 using (var database = new EventSpotDbContext())
                 {
@@ -88,14 +104,16 @@ namespace EventSpot.Controllers
                         .Where(u => u.UserName == this.User.Identity.Name)
                         .First()
                         .Id;
-       
+
                     //Set Event Organizer
                     events.OrganizerId = organizerId;
 
+                    events.EventPhoto = imageData;
 
                     //Save event in DB
                     
                     database.Events.Add(events);
+
                     database.SaveChanges();
 
                     return RedirectToAction("Main");
@@ -103,6 +121,14 @@ namespace EventSpot.Controllers
             }
 
             return View(events);
+        }
+
+
+        public ActionResult DisplayImg(int Id)
+        {
+            var bdEvents = HttpContext.GetOwinContext().Get<EventSpotDbContext>();
+            var eventImage = bdEvents.Events.Where(x => x.Id == Id).FirstOrDefault();
+            return new FileContentResult(eventImage.EventPhoto, "image/jpeg");
         }
 
 
@@ -241,10 +267,31 @@ namespace EventSpot.Controllers
 
 
 
+
         // GET: Upload
         public ActionResult UploadIndex()
         {
             return View();
+        }
+        public FileContentResult EventPhoto(Event events)
+        {
+
+            int eventId = events.Id;
+
+
+            string fileName = HttpContext.Server.MapPath(@"~/Images/noImg.png");
+
+            byte[] imageData = null;
+            FileInfo fileInfo = new FileInfo(fileName);
+            long imageFileLength = fileInfo.Length;
+            FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(fs);
+            imageData = br.ReadBytes((int)imageFileLength);
+
+            return File(imageData, "image/png");
+
+
+
         }
     }
 }

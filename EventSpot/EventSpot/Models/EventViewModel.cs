@@ -24,7 +24,9 @@ namespace EventSpot.Models
         public string EventDescription { get; set; }
 
         public string OrganizerId { get; set; }
-        
 
+
+        [Display(Name = "EventPhoto")]
+        public byte[] EventPhoto { get; set; }
     }
 }

@@ -23,6 +23,9 @@
         <small class="author">
             Organized by:  @Model.Organizer.FullName
         </small>
+        
+        <img src="@Url.Action("DisplayImg", Model.Id )" />
+
         <footer class="pull-right">
             @if (User.IsInRole("Admin") || Model.IsOrganizer(User.Identity.Name))
             {
