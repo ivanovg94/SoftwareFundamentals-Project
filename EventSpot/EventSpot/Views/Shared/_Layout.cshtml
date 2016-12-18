@@ -27,7 +27,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("EventSpot", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+              
+
+                <p class="site-title">
+             
+                    <a href="@Url.Action("Index", "Home")">
+                        <img src="~/Images/logo.png" alt="" />
+                    </a>
+                </p>
+                @*@Html.ActionLink("EventSpot", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">

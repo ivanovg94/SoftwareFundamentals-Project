@@ -209,6 +209,7 @@
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\EventSpotDbContext.cs" />
     <Compile Include="Models\EventViewModel.cs" />
+    <Compile Include="Models\File.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -280,6 +281,7 @@
     <Content Include="Views\Event\Delete.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Event\Upload_file.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

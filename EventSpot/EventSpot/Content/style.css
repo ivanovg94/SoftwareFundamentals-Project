@@ -18,3 +18,8 @@ body {
 .jumbotron {
     color:#14B0C7
 }
+/*different fonts*/
+.navbar-inverse .navbar-nav > li > a {
+  color: #000000;
+  font-family:'Showcard Gothic';
+}

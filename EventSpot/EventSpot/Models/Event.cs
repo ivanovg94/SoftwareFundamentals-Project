@@ -37,12 +37,8 @@ namespace EventSpot.Models
         {
             return this.Organizer.UserName.Equals(name);
         }
-        
-        //public byte EventImage { get; set; }
+        public virtual ICollection<File> Files { get; set; }
 
-        //public class ExtendedIdentityModels : EventViewModel
-        //{
-        //    public HttpPostedFileBase EventPicture { get; set; }
-        //}
+
     }
 }
