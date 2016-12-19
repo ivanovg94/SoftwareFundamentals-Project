@@ -6,33 +6,41 @@
 
 <div class="container">
     <article>
-        <header>
-            <h2>
-                @Model.EventName
-            </h2>
-            <h5>
-                @Model.EventDate.ToShortDateString()
-                @Model.StartTime
-            </h5>
-        </header>
-        
-        <p>
-            @Model.EventDescription
-        </p>
+        <div class="jumbotron">
 
-        <small class="author">
-            Organized by:  @Model.Organizer.FullName
-        </small>
-        
-        <img src="@Url.Action("DisplayImg", Model.Id )" />
+            <header>
+                <h3>
+                    @Model.EventName
+                </h3>
+                <h5>
+                    @Model.EventDate.ToShortDateString()
+                    @Model.StartTime
+                </h5>
+            </header>
+            
 
-        <footer class="pull-right">
+                <div class="well">
+                    @Model.EventDescription
+                
+            </div>
+            <div class="pull-left">
+                <small class="author">
+                    Organized by:  @Model.Organizer.FullName
+                </small>
+            </div>
+            <div class="pull-right">
+        
             @if (User.IsInRole("Admin") || Model.IsOrganizer(User.Identity.Name))
             {
-            @Html.ActionLink("Edit", "Edit", "Event", new { @id = Model.Id }, new { @class = "btn btn-success btn-xs" })
-            @Html.ActionLink("Delete", "Delete", "Event", new { @id = Model.Id }, new { @class = "btn btn-danger btn-xs" })
-            }
-                 @Html.ActionLink("Back", "Main", "Event", null, new { @class = "btn btn-default btn-xs" })
-        </footer>
+                    @Html.ActionLink("Edit", "Edit", "Event", new { @id = Model.Id }, new { @class = "btn btn-success btn-xs" })
+                    @Html.ActionLink("Delete", "Delete", "Event", new { @id = Model.Id }, new { @class = "btn btn-danger btn-xs" })
+                }
+                @Html.ActionLink("Back", "Main", "Event", null, new { @class = "btn btn-default btn-xs" })
+            </div>
+            <div class="col-sm-8">
+                <img src="@Url.Action("DisplayImg", new { Id = Model.Id }) " class="img-thumbnail" />
+            </div>
+        </div>
+     
     </article>
 </div>

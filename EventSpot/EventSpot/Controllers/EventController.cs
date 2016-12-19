@@ -267,12 +267,5 @@ namespace EventSpot.Controllers
 
 
 
-
-        // GET: Upload
-        public ActionResult UploadIndex()
-        {
-            return View();
-        }
-      
     }
 }
