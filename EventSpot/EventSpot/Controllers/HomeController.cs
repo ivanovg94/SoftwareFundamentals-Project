@@ -26,5 +26,6 @@ namespace EventSpot.Controllers
 
             return View();
         }
+      
     }
 }

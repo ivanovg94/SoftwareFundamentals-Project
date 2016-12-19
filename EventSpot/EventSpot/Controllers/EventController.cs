@@ -3,9 +3,14 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using EventSpot.Models;
+using System.Numerics;
+using static EventSpot.Models.Event;
+using System.IO;
+using System.Text;
 using System.Web;
 using System.IO;
 using Microsoft.AspNet.Identity.Owin;
+
 
 namespace EventSpot.Controllers
 {
@@ -72,8 +77,11 @@ namespace EventSpot.Controllers
         [HttpPost]
         public ActionResult Create(Event events)
         {
+          
+          
             if (ModelState.IsValid)
             {
+
                 // To convert the user uploaded Photo as Byte Array before save to DB 
                 byte[] imageData = null;
                 if (Request.Files.Count > 0)
@@ -87,6 +95,7 @@ namespace EventSpot.Controllers
                 }
 
 
+
                 //insert event in DB 
                 using (var database = new EventSpotDbContext())
                 {
@@ -96,13 +105,13 @@ namespace EventSpot.Controllers
                         .First()
                         .Id;
 
-
                     //Set Event Organizer
                     events.OrganizerId = organizerId;
 
                     events.EventPhoto = imageData;
 
                     //Save event in DB
+                    
                     database.Events.Add(events);
 
                     database.SaveChanges();
@@ -114,12 +123,14 @@ namespace EventSpot.Controllers
             return View(events);
         }
 
+
         public ActionResult DisplayImg(int Id)
         {
             var bdEvents = HttpContext.GetOwinContext().Get<EventSpotDbContext>();
             var eventImage = bdEvents.Events.Where(x => x.Id == Id).FirstOrDefault();
             return new FileContentResult(eventImage.EventPhoto, "image/jpeg");
         }
+
 
         //
         //GET: Event/Delete
@@ -253,6 +264,7 @@ namespace EventSpot.Controllers
 
             return isAdmin || isOrganizer;
         }
+
 
     }
 }

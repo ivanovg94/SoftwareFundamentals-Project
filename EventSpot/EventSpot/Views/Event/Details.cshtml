@@ -29,7 +29,8 @@
                 </small>
             </div>
             <div class="pull-right">
-                @if (User.IsInRole("Admin") || Model.IsOrganizer(User.Identity.Name))
+        
+            @if (User.IsInRole("Admin") || Model.IsOrganizer(User.Identity.Name))
             {
                     @Html.ActionLink("Edit", "Edit", "Event", new { @id = Model.Id }, new { @class = "btn btn-success btn-xs" })
                     @Html.ActionLink("Delete", "Delete", "Event", new { @id = Model.Id }, new { @class = "btn btn-danger btn-xs" })

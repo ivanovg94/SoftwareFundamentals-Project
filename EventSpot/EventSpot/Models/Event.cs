@@ -35,14 +35,12 @@ namespace EventSpot.Models
 
         public byte[] EventPhoto { get; set; }
 
-
-
-
-
         public bool IsOrganizer(string name)
         {
             return this.Organizer.UserName.Equals(name);
         }
-     
+
+
+
     }
 }
