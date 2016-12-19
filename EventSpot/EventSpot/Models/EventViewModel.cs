@@ -8,7 +8,7 @@ namespace EventSpot.Models
 {
     public class EventViewModel
     {
-        
+
         public int Id { get; set; }
 
         [Required]
@@ -26,6 +26,12 @@ namespace EventSpot.Models
         public string OrganizerId { get; set; }
 
         public byte EventImage { get; set; }
+
+        public int CategoryId { get; set; }
+
+        public List<Category> Categories { get; set; }
+
+        public ICollection<Event> Events { get; set; }
 
     }
 }

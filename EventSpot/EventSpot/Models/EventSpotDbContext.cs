@@ -18,6 +18,8 @@ namespace EventSpot.Models
 
         public virtual IDbSet<Event> Events { get; set; }
 
+        public virtual IDbSet<Category> Categories { get; set; }
+
         public static EventSpotDbContext Create()
         {
             return new EventSpotDbContext();

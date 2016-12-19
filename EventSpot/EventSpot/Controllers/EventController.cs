@@ -59,15 +59,23 @@ namespace EventSpot.Controllers
         [Authorize]
         public ActionResult Create()
         {
+            using (var database = new EventSpotDbContext())
+            {
+                var model = new EventViewModel();
+                model.Categories = database.Categories
+                    .OrderBy(c => c.Name)
+                    .ToList();
 
-            return View();
+                return View(model);
+            }
+           
         }
 
         //
         //POST: Event/Create
         [Authorize]
         [HttpPost]
-        public ActionResult Create(Event events)
+        public ActionResult Create(EventViewModel model)
         {
         
 
@@ -82,6 +90,9 @@ namespace EventSpot.Controllers
                         .First()
                         .Id;
 
+                    var events = new Event(organizerId, model.EventName, 
+                        model.EventDescription, model.EventDate,
+                        model.StartTime, model.CategoryId);
                     
                     //Set Event Organizer
                     events.OrganizerId = organizerId;
@@ -95,7 +106,7 @@ namespace EventSpot.Controllers
                 }
             }
 
-            return View(events);
+            return View(model);
         }
 
         //
@@ -188,6 +199,10 @@ namespace EventSpot.Controllers
                 model.EventName = events.EventName;
                 model.EventDate = events.EventDate;
                 model.EventDescription = events.EventDescription;
+                model.CategoryId = events.CategoryId;
+                model.Categories = database.Categories
+                    .OrderBy(c => c.Name)
+                    .ToList();
 
                 //Pass the view model to view
                 return View(model);
@@ -212,7 +227,7 @@ namespace EventSpot.Controllers
                     events.EventName = model.EventName;
                     events.EventDate = model.EventDate;
                     events.EventDescription = model.EventDescription;
-
+                    events.CategoryId = model.CategoryId;
 
                     database.Entry(events).State = EntityState.Modified;
                     database.SaveChanges();
