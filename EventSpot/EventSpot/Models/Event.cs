@@ -53,16 +53,14 @@ namespace EventSpot.Models
 
         public ApplicationUser Organizer { get; set; }
 
+        public byte[] EventPhoto { get; set; }
+
         public bool IsOrganizer(string name)
         {
             return this.Organizer.UserName.Equals(name);
         }
-        
-        //public byte EventImage { get; set; }
 
-        //public class ExtendedIdentityModels : EventViewModel
-        //{
-        //    public HttpPostedFileBase EventPicture { get; set; }
-        //}
+
+
     }
 }

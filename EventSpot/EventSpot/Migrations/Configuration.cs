@@ -56,8 +56,8 @@ namespace EventSpot.Migrations
                 if (chkUser.Succeeded)
                 {
                     var result1 = UserManager.AddToRole(user.Id, "Admin");
-
                 }
+
             }
             // creating Creating Manager role    
             if (!roleManager.RoleExists("Organizer"))

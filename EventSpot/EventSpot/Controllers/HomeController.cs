@@ -30,6 +30,7 @@ namespace EventSpot.Controllers
             return View();
         }
 
+
         public ActionResult ListCategories()
         {
             using (var database = new EventSpotDbContext())
@@ -62,5 +63,6 @@ namespace EventSpot.Controllers
             }
            
         }
+
     }
 }

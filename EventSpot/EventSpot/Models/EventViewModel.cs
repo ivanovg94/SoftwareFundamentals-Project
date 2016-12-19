@@ -16,6 +16,8 @@ namespace EventSpot.Models
         public string EventName { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EventDate { get; set; }
 
         [Required]
@@ -25,7 +27,7 @@ namespace EventSpot.Models
 
         public string OrganizerId { get; set; }
 
-        public byte EventImage { get; set; }
+
 
         public int CategoryId { get; set; }
 
@@ -33,5 +35,8 @@ namespace EventSpot.Models
 
         public ICollection<Event> Events { get; set; }
 
+
+        [Display(Name = "EventPhoto")]
+        public byte[] EventPhoto { get; set; }
     }
 }
