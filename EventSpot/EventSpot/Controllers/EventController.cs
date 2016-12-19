@@ -8,7 +8,6 @@ using static EventSpot.Models.Event;
 using System.IO;
 using System.Text;
 using System.Web;
-using System.IO;
 using Microsoft.AspNet.Identity.Owin;
 
 
@@ -74,9 +73,13 @@ namespace EventSpot.Controllers
                     .OrderBy(c => c.Name)
                     .ToList();
 
+                model.Cities = database.Cities
+                    .OrderBy(c => c.Name)
+                    .ToList();
+
                 return View(model);
             }
-           
+
         }
 
         //
@@ -85,8 +88,8 @@ namespace EventSpot.Controllers
         [HttpPost]
         public ActionResult Create(EventViewModel model)
         {
-          
-          
+
+
             if (ModelState.IsValid)
             {
 
@@ -114,10 +117,10 @@ namespace EventSpot.Controllers
                         .Id;
 
 
-                    var events = new Event(organizerId, model.EventName, 
+                    var events = new Event(organizerId, model.EventName,
                         model.EventDescription, model.EventDate,
-                        model.StartTime, model.CategoryId);
-                    
+                        model.StartTime, model.CategoryId, model.CityId);
+
 
                     //Set Event Organizer
                     events.OrganizerId = organizerId;
@@ -125,7 +128,7 @@ namespace EventSpot.Controllers
                     events.EventPhoto = imageData;
 
                     //Save event in DB
-                    
+
                     database.Events.Add(events);
 
                     database.SaveChanges();
@@ -136,13 +139,13 @@ namespace EventSpot.Controllers
 
             return View(model);
         }
-       
+
 
         public ActionResult DisplayImg(int Id)
         {
             var bdEvents = HttpContext.GetOwinContext().Get<EventSpotDbContext>();
             var eventImage = bdEvents.Events.Where(x => x.Id == Id).FirstOrDefault();
-            return new FileContentResult(eventImage.EventPhoto, "image/jpg"); 
+            return new FileContentResult(eventImage.EventPhoto, "image/jpg");
         }
 
 
@@ -240,7 +243,10 @@ namespace EventSpot.Controllers
                 model.Categories = database.Categories
                     .OrderBy(c => c.Name)
                     .ToList();
-
+                model.CityId = events.CityId;
+                model.Cities = database.Cities
+                    .OrderBy(c => c.Name)
+                    .ToList();
                 //Pass the view model to view
                 return View(model);
             }
@@ -265,6 +271,7 @@ namespace EventSpot.Controllers
                     events.EventDate = model.EventDate;
                     events.EventDescription = model.EventDescription;
                     events.CategoryId = model.CategoryId;
+                    events.CityId = model.CityId;
 
                     database.Entry(events).State = EntityState.Modified;
                     database.SaveChanges();

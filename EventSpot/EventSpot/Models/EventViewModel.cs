@@ -27,11 +27,13 @@ namespace EventSpot.Models
 
         public string OrganizerId { get; set; }
 
-
-
         public int CategoryId { get; set; }
 
         public List<Category> Categories { get; set; }
+
+        public int CityId { get; set; }
+
+        public List<City> Cities { get; set; }
 
         public ICollection<Event> Events { get; set; }
 

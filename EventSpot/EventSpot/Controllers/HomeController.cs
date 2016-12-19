@@ -64,5 +64,38 @@ namespace EventSpot.Controllers
            
         }
 
+        public ActionResult ListCities()
+        {
+            using (var database = new EventSpotDbContext())
+            {
+                var cities = database.Cities
+                    .Include(c => c.Events)
+                    .OrderBy(c => c.Name)
+                    .ToList();
+
+                return View(cities);
+
+            }
+        }
+
+        public ActionResult ListEventsByCity(int? cityId)
+        {
+            if (cityId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            using (var database = new EventSpotDbContext())
+            {
+                var events = database.Events
+                    .Where(a => a.CityId == cityId)
+                    .Include(a => a.Organizer)
+                    .ToList();
+
+                return View(events);
+
+            }
+
+        }
+
     }
 }

@@ -162,7 +162,7 @@ namespace EventSpot.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, FullName = model.FullName, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, FullName = model.FullName, Email = model.Email, UserRole = model.UserRoles };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
