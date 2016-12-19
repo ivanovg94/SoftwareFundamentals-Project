@@ -122,13 +122,13 @@ namespace EventSpot.Controllers
 
             return View(events);
         }
-
+       
 
         public ActionResult DisplayImg(int Id)
         {
             var bdEvents = HttpContext.GetOwinContext().Get<EventSpotDbContext>();
             var eventImage = bdEvents.Events.Where(x => x.Id == Id).FirstOrDefault();
-            return new FileContentResult(eventImage.EventPhoto, "image/jpeg");
+            return new FileContentResult(eventImage.EventPhoto, "image/jpg"); 
         }
 
 
@@ -273,25 +273,6 @@ namespace EventSpot.Controllers
         {
             return View();
         }
-        public FileContentResult EventPhoto(Event events)
-        {
-
-            int eventId = events.Id;
-
-
-            string fileName = HttpContext.Server.MapPath(@"~/Images/noImg.png");
-
-            byte[] imageData = null;
-            FileInfo fileInfo = new FileInfo(fileName);
-            long imageFileLength = fileInfo.Length;
-            FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-            BinaryReader br = new BinaryReader(fs);
-            imageData = br.ReadBytes((int)imageFileLength);
-
-            return File(imageData, "image/png");
-
-
-
-        }
+      
     }
 }

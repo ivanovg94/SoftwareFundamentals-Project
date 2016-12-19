@@ -21,10 +21,10 @@ namespace EventSpot.Migrations
         {
             //Uncoment this to create roles and for the first time
 
-            //   createRolesandUsers();
+            //createRolesandUsers();
         }
 
-
+  
         private void createRolesandUsers()
         {
             EventSpotDbContext context = new EventSpotDbContext();
@@ -38,17 +38,17 @@ namespace EventSpot.Migrations
             {
 
                 // first we create Admin rool   
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                var role = new IdentityRole();
                 role.Name = "Admin";
                 roleManager.Create(role);
 
                 //create a Admin super user             
 
                 var user = new ApplicationUser();
-                user.UserName = "shanu";
-                user.Email = "syedshanumcain@gmail.com";
-
-                string userPWD = "A@Z200711";
+                user.UserName = "admin";
+                user.Email = "admin@admin.com";
+              
+                string userPWD = "123456";
 
                 var chkUser = UserManager.Create(user, userPWD);
 
@@ -59,21 +59,20 @@ namespace EventSpot.Migrations
 
                 }
             }
-
             // creating Creating Manager role    
-            if (!roleManager.RoleExists("Manager"))
+            if (!roleManager.RoleExists("Organizer"))
             {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Manager";
+                var role = new IdentityRole();
+                role.Name = "Organizer";
                 roleManager.Create(role);
 
             }
 
             // creating Creating Employee role    
-            if (!roleManager.RoleExists("Employee"))
+            if (!roleManager.RoleExists("Attendant"))
             {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Employee";
+                var role = new IdentityRole();
+                role.Name = "Attendant";
                 roleManager.Create(role);
 
             }
