@@ -254,26 +254,5 @@ namespace EventSpot.Controllers
             return isAdmin || isOrganizer;
         }
 
-
-
-        public FileContentResult EventPhoto(Event events)
-        {
-
-            int eventId = events.Id;
-
-
-            string fileName = HttpContext.Server.MapPath(@"~/Images/noImg.png");
-
-            byte[] imageData = null;
-            FileInfo fileInfo = new FileInfo(fileName);
-            long imageFileLength = fileInfo.Length;
-            FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-            BinaryReader br = new BinaryReader(fs);
-            imageData = br.ReadBytes((int)imageFileLength);
-
-            return File(imageData, "image/png");
-
-
-        }
     }
 }
