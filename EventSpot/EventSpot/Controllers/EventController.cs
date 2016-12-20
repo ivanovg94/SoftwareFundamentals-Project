@@ -8,7 +8,6 @@ using static EventSpot.Models.Event;
 using System.IO;
 using System.Text;
 using System.Web;
-using System.IO;
 using Microsoft.AspNet.Identity.Owin;
 
 
@@ -77,11 +76,8 @@ namespace EventSpot.Controllers
         [HttpPost]
         public ActionResult Create(Event events)
         {
-          
-          
             if (ModelState.IsValid)
             {
-
                 // To convert the user uploaded Photo as Byte Array before save to DB 
                 byte[] imageData = null;
                 if (Request.Files.Count > 0)
@@ -93,9 +89,7 @@ namespace EventSpot.Controllers
                         imageData = binary.ReadBytes(poImgFile.ContentLength);
                     }
                 }
-
-
-
+                
                 //insert event in DB 
                 using (var database = new EventSpotDbContext())
                 {
@@ -110,10 +104,12 @@ namespace EventSpot.Controllers
 
                     events.EventPhoto = imageData;
 
-                    //Save event in DB
-                    
-                    database.Events.Add(events);
+                    //!
+                    //events.Attendant.Add(User.Identity.Name);
 
+                    //Save event in DB
+
+                    database.Events.Add(events);
                     database.SaveChanges();
 
                     return RedirectToAction("Main");
@@ -265,6 +261,33 @@ namespace EventSpot.Controllers
             return isAdmin || isOrganizer;
         }
 
+
+        ////POST: Event/AttendantCount
+        //[Authorize]
+        //[HttpPost]
+        //public ActionResult AttendantCount(int? Id)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var attendantName = User.Identity.Name;
+
+        //        using (var database = new EventSpotDbContext())
+        //        {
+        //            //Get article from database
+        //            var events = database.Events
+        //                .FirstOrDefault(a => a.Id == Id);
+
+        //            events.Attendant.Add(attendantName);
+
+
+        //            database.Entry(events).State = EntityState.Modified;
+        //            database.SaveChanges();
+        //        }
+        //    }
+        //    return RedirectToAction("Details");
+        //}
+
+      
 
     }
 }

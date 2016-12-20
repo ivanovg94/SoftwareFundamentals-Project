@@ -45,10 +45,10 @@ namespace EventSpot.Migrations
                 //create a Admin super user             
 
                 var user = new ApplicationUser();
-                user.UserName = "shanu";
-                user.Email = "syedshanumcain@gmail.com";
+                user.UserName = "admin@admin.com";
+                user.Email = "admin@admin.com";
 
-                string userPWD = "A@Z200711";
+                string userPWD = "123456";
 
                 var chkUser = UserManager.Create(user, userPWD);
 
@@ -61,19 +61,19 @@ namespace EventSpot.Migrations
             }
 
             // creating Creating Manager role    
-            if (!roleManager.RoleExists("Manager"))
+            if (!roleManager.RoleExists("Organizer"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Manager";
+                role.Name = "Organizer";
                 roleManager.Create(role);
 
             }
 
             // creating Creating Employee role    
-            if (!roleManager.RoleExists("Employee"))
+            if (!roleManager.RoleExists("Attendant"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Employee";
+                role.Name = "Attendant";
                 roleManager.Create(role);
 
             }

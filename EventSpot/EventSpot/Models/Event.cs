@@ -23,7 +23,7 @@ namespace EventSpot.Models
 
 
         [Required]
-        [RegularExpression(@"^(0[1-9]|1[0-2]):[0-5][0-9] (am|pm|AM|PM)$", ErrorMessage = "Invalid Time.")]
+        [RegularExpression(@"([01]?[0-9]|2[0-3]):[0-5][0-9]", ErrorMessage = "Invalid Time.")]
         public string StartTime { get; set; }
 
         public string EventDescription { get; set; }
@@ -34,6 +34,9 @@ namespace EventSpot.Models
         public ApplicationUser Organizer { get; set; }
 
         public byte[] EventPhoto { get; set; }
+
+        
+     //   public ICollection<string> Attendant { get; set; }
 
         public bool IsOrganizer(string name)
         {

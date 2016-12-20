@@ -1,4 +1,5 @@
-﻿@model EventSpot.Models.Event
+﻿@using Microsoft.Ajax.Utilities
+@model EventSpot.Models.Event
 
 @{
     ViewBag.Title = "Details";
@@ -17,20 +18,30 @@
                     @Model.StartTime
                 </h5>
             </header>
-            
 
-                <div class="well">
-                    @Model.EventDescription
-                
+
+            <div class="well">
+
+                Model.EventDescription
             </div>
+
             <div class="pull-left">
                 <small class="author">
                     Organized by:  @Model.Organizer.FullName
                 </small>
+
+                @*@Html.ActionLink("Attend", "AttendantCount", "EventController", new { @class = "btn btn-default btn-xs" })*@
+
+                @*@Model.Attendant.Count();*@
+
+
+
+                @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+
+
             </div>
             <div class="pull-right">
-        
-            @if (User.IsInRole("Admin") || Model.IsOrganizer(User.Identity.Name))
+                @if (User.IsInRole("Admin") || Model.IsOrganizer(User.Identity.Name))
             {
                     @Html.ActionLink("Edit", "Edit", "Event", new { @id = Model.Id }, new { @class = "btn btn-success btn-xs" })
                     @Html.ActionLink("Delete", "Delete", "Event", new { @id = Model.Id }, new { @class = "btn btn-danger btn-xs" })
@@ -38,9 +49,9 @@
                 @Html.ActionLink("Back", "Main", "Event", null, new { @class = "btn btn-default btn-xs" })
             </div>
             <div class="col-sm-8">
-                <img src="@Url.Action("DisplayImg", new { Id = Model.Id }) " class="img-thumbnail" />
+                <img src="@Url.Action("DisplayImg", new { Id = Model.Id }) " class="img-thumbnail" alt=""/>
             </div>
         </div>
-     
+
     </article>
 </div>
