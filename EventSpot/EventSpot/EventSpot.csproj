@@ -295,6 +295,7 @@
     <Content Include="Views\City\Delete.cshtml" />
     <Content Include="Views\Home\ListCities.cshtml" />
     <Content Include="Views\Home\ListEventsByCity.cshtml" />
+    <Content Include="Views\City\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

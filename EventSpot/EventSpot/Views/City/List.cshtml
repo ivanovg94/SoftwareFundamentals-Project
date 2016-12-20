@@ -1,0 +1,37 @@
+﻿@model List < EventSpot.Models.City>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<div class="container">
+    <div class="well">
+        <h2>All Cities - @Html.ActionLink("Create", "Create", "City", null, new { @class = "btn btn-warning" })</h2>
+        <div class="row">
+            <table class="table table-condensed col-sm-12">
+                <thead>
+                    <tr class="warning">
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var city in Model)
+                    {
+                        <tr>
+                            <td>@city.Id</td>
+                            <td>@city.Name</td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", "City", new { @id = city.Id }, null)
+                                @Html.ActionLink("Delete", "Delete", "City", new { @id = city.Id }, null)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
