@@ -1,4 +1,4 @@
-﻿@model List<EventSpot.Models.City>
+﻿++
 
 @{
     ViewBag.Title = "List";
@@ -10,7 +10,7 @@
         {
             <div class="label label-default text-center text-uppercase">
                 <p>
-                    <h2>
+                    
                         @Html.ActionLink(string.Format($"{city.Name} ({city.Events.Count})"),
                         "ListEventsByCity", "Home", new { @cityId = city.Id }, null)
                    

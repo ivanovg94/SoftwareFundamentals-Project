@@ -135,7 +135,15 @@ namespace EventSpot.Controllers.Admin
                 return RedirectToAction("Index");
             }
         }
+
+        [ChildActionOnly]
+        public ActionResult GetNavbarCategories()
+        {
+            using (var db = new EventSpotDbContext())
+            {
+                var navbarCategories = db.Categories.ToList();
+                return PartialView("_NavbarCategoriesDropdown", navbarCategories);
+            }
+        }
     }
-
-
 }

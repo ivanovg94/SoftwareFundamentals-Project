@@ -1,0 +1,12 @@
+﻿@model List<EventSpot.Models.Category>
+
+<ul class="dropdown-menu" role="menu">
+    @*<li>@Html.ActionLink("Users", "List", "User")</li>
+        <li>@Html.ActionLink("Categories", "List", "Category")</li>
+        <li>@Html.ActionLink("Cities", "List", "City")</li>*@
+
+    @foreach (var category in Model)
+    {
+        @Html.ActionLink(category.Name, "ListEvents", "Home", new { id = category.Id }, null)
+    }
+</ul>

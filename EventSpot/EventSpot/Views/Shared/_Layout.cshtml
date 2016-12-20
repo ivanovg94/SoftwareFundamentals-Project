@@ -41,28 +41,29 @@
                 <ul class="nav navbar-nav">
                     @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@ @*home link if you want to change this, change it in controllers/home*@
                     <li>@Html.ActionLink("Main", "Main", "Home")</li>
-
-                    <li>@Html.ActionLink("Categories", "ListCategories", "Home")</li>
-
-
+                    @*<li>@Html.ActionLink("Categories", "ListCategories", "Home")</li>*@
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
+                        @Html.Action("GetNavbarCategories", "Category")
+                    </li>
                     <li>@Html.ActionLink("Cities", "ListCities", "Home")</li>
+                       <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
 
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - VGS Events</p>
-        </footer>
-    </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - VGS Events</p>
+            </footer>
+        </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
-</html>
+        @Scripts.Render("~/bundles/jquery")
+                                @Scripts.Render("~/bundles/bootstrap")
+                                @RenderSection("scripts", required: false)
+                            </body>
+                        </html>
