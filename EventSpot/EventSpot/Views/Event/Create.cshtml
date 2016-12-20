@@ -42,20 +42,28 @@
                 </div>
             </div>
 
-                        <div class="form-group">
-                @Html.LabelFor(m => m.EventPhoto, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-
+             <div class="form-group">
+                @Html.LabelFor(m => m.EventPhoto, new { @class = "col-sm-4 control-label" })
+              <div class="col-sm-4">
                     <input type="file" name="Event" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
-
                 </div>
             </div>
 
+   
             <div class="form-group">
                 @Html.LabelFor(m => m.CategoryId, new { @class = "col-sm-4 control-label" })
                 <div class="dropdown col-sm-4">
                     @Html.DropDownListFor(m => m.CategoryId,
                         new SelectList(Model.Categories, "Id", "Name"),
+                        new { @class = "btn btn-info col-sm-12" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.CityId, new { @class = "col-sm-4 control-label" })
+                <div class="dropdown col-sm-4">
+                    @Html.DropDownListFor(m => m.CityId,
+                        new SelectList(Model.Cities, "Id", "Name"),
                         new { @class = "btn btn-info col-sm-12" })
                 </div>
             </div>

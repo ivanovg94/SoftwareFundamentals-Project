@@ -16,6 +16,9 @@ namespace EventSpot.Models
         [Required]
         public string FullName { get; set; }
 
+        [Required]
+        public string UserRole { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

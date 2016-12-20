@@ -19,8 +19,8 @@ namespace EventSpot.Migrations
 
         protected override void Seed(EventSpotDbContext context)
         {
-            //Uncoment this to create roles and for the first time
-
+          
+            //
             //createRolesandUsers();
         }
 

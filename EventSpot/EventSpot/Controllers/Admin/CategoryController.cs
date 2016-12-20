@@ -41,7 +41,7 @@ namespace EventSpot.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
-                using(var database = new EventSpotDbContext())
+                using (var database = new EventSpotDbContext())
                 {
                     database.Categories.Add(category);
                     database.SaveChanges();
@@ -57,7 +57,7 @@ namespace EventSpot.Controllers.Admin
         // GET: Category/Edit
         public ActionResult Edit(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -66,7 +66,7 @@ namespace EventSpot.Controllers.Admin
                 var category = database.Categories
                     .FirstOrDefault(c => c.Id == id);
 
-                if(category == null)
+                if (category == null)
                 {
                     return HttpNotFound();
                 }
@@ -74,7 +74,7 @@ namespace EventSpot.Controllers.Admin
             }
         }
         //
-        //Post: Cateogry/Delete
+        //Post: Cateogry/Edit
         [HttpPost]
         public ActionResult Edit(Category category)
         {
@@ -90,7 +90,7 @@ namespace EventSpot.Controllers.Admin
 
             }
             return View(category);
-            
+
         }
 
         public ActionResult Delete(int? id)

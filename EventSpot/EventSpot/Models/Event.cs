@@ -14,7 +14,7 @@ namespace EventSpot.Models
 
         }
 
-        public Event(string organizerId, string eventName, string discription, DateTime date, string time, int categoryId)
+        public Event(string organizerId, string eventName, string discription, DateTime date, string time, int categoryId, int cityId)
         {
             this.OrganizerId = organizerId;
             this.EventName = eventName;
@@ -22,6 +22,7 @@ namespace EventSpot.Models
             this.EventDate = date;
             this.StartTime = time;
             this.CategoryId = categoryId;
+            this.CityId = cityId;
         }
         [Key]
         public int Id { get; set; }
@@ -46,7 +47,12 @@ namespace EventSpot.Models
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
-        
+
+        [ForeignKey("City")]
+        public int CityId { get; set; }
+
+        public virtual City City { get; set; }
+
 
         [ForeignKey("Organizer")]
         public string OrganizerId { get; set; }
