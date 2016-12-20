@@ -9,6 +9,24 @@ namespace EventSpot.Models
 {
     public class Event
     {
+        private ICollection<Tag> tags;
+
+        public Event()
+        {
+            this.tags = new HashSet<Tag>();
+        }
+
+        public Event(string organizerId, string eventName, string discription, DateTime date, string time, int categoryId, int cityId)
+        {
+            this.OrganizerId = organizerId;
+            this.EventName = eventName;
+            this.EventDescription = discription;
+            this.EventDate = date;
+            this.StartTime = time;
+            this.CategoryId = categoryId;
+            this.CityId = cityId;
+            this.tags = new HashSet<Tag>();
+        }
         [Key]
         public int Id { get; set; }
 
@@ -27,6 +45,25 @@ namespace EventSpot.Models
         public string StartTime { get; set; }
 
         public string EventDescription { get; set; }
+
+        [ForeignKey("Category")]
+        public int CategoryId { get; set; }
+
+        public virtual Category Category { get; set; }
+
+      
+
+        [ForeignKey("City")]
+        public int CityId { get; set; }
+
+        public virtual City City { get; set; }
+
+
+        public virtual ICollection<Tag> Tags
+        {
+            get { return this.tags; }
+            set { this.tags = value; }
+        }
 
         [ForeignKey("Organizer")]
         public string OrganizerId { get; set; }

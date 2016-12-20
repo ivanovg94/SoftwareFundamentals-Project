@@ -1,0 +1,38 @@
+﻿@model List<EventSpot.Models.Event>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var events in Model)
+        {
+            <div class="col-sm-6">
+                <article>
+                    <header>
+                        <h2>
+                            @Html.ActionLink(@events.EventName, "Details", "Event", new { @id = events.Id }, null)
+                        </h2>
+                    </header>
+                    <p>
+                        @events.EventDescription
+                    </p>
+                    <footer>
+                        <div class="pull-left">
+                            @foreach (var tag in events.Tags)
+                            {
+                                @Html.ActionLink(tag.Name, "List", "Tag", new { @id = tag.Id }, new { @class = "btn btn-default btn-xs" })
+                            }
+                        </div>
+                        <small class="author pull-right">
+                            --author @events.Organizer.FullName
+                        </small>
+                    </footer>
+
+                </article>
+            </div>
+        }
+    </div>
+</div>
+

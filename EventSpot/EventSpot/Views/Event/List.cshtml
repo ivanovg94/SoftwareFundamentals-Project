@@ -27,10 +27,15 @@
                         </p>
                         <footer>
                             <div class="pull-left">
+                                @foreach (var tag in events.Tags)
+                                {
+                                    @Html.ActionLink(tag.Name, "List", "Tag", new { @id = tag.Id
+                               }, new { @class = "btn btn-default btn-xs" })
+                                }
+                                </div>
                             <small class="author">
                                 Organized by: @events.Organizer.FullName
                             </small>
-                                </div>
                             <div class="pull-right">
                                 @Html.ActionLink("Details", "Details", "Event", new { @id = events.Id }, new { @class = "btn btn-default btn-xs" })
                             </div>

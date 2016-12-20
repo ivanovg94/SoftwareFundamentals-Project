@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New</h2>
+
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            @foreach (var category in Model)
+            {
+                @Html.ActionLink(string.Format($"{category.Name} ({category.Events.Count})"),
+                             "ListEvents", "Home", new { @categoryId = category.Id }, null)
+            }
+        </li>
+    </ul>
+</li>
+
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Cities<span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
+        
+            @foreach (var city in Model)
+            {
+                <li>@Html.ActionLink(string.Format($"{city.Name} ({city.Events.Count})"),
+                             "ListEventsByCity", "Home", new { @cityId = city.Id }, null)
+        </li>
+            }
+        
+    </ul>
+</li>

@@ -7,6 +7,7 @@ namespace EventSpot.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using System.Web;
 
     public sealed class Configuration : DbMigrationsConfiguration<EventSpotDbContext>
     {
@@ -19,51 +20,44 @@ namespace EventSpot.Migrations
 
         protected override void Seed(EventSpotDbContext context)
         {
-            //Uncoment this to create roles and for the first time
+            createRolesandUsers(context);
 
-            //   createRolesandUsers();
+            if (!context.Users.Any())
+            {
+                this.CreateUser(context, "admin@admin.com", "Admin", "123");
+                this.SetRoleToUser(context, "admin@admin.com", "Admin");
+            }
         }
 
 
-        private void createRolesandUsers()
+        private void createRolesandUsers(EventSpotDbContext context)
         {
-            EventSpotDbContext context = new EventSpotDbContext();
-
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
 
-            // creating first Admin Role and creating a default Admin User    
+            //  creating first Admin Role and creating a default Admin User
+
+
+
             if (!roleManager.RoleExists("Admin"))
             {
 
                 // first we create Admin rool   
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                var role = new IdentityRole();
                 role.Name = "Admin";
                 roleManager.Create(role);
 
-                //create a Admin super user             
 
-                var user = new ApplicationUser();
-                user.UserName = "admin@admin.com";
-                user.Email = "admin@admin.com";
-
-                string userPWD = "123456";
-
-                var chkUser = UserManager.Create(user, userPWD);
-
-                //Add default User to Role Admin   
-                if (chkUser.Succeeded)
-                {
-                    var result1 = UserManager.AddToRole(user.Id, "Admin");
-
-                }
             }
+
+
+
 
             // creating Creating Manager role    
             if (!roleManager.RoleExists("Organizer"))
             {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                var role = new IdentityRole();
                 role.Name = "Organizer";
                 roleManager.Create(role);
 
@@ -72,10 +66,59 @@ namespace EventSpot.Migrations
             // creating Creating Employee role    
             if (!roleManager.RoleExists("Attendant"))
             {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                var role = new IdentityRole();
                 role.Name = "Attendant";
                 roleManager.Create(role);
 
+            }
+
+
+        }
+
+
+
+
+        private void CreateUser(EventSpotDbContext context, string email, string fullName, string password)
+        {
+            // Create user manager
+            var userManager = new UserManager<ApplicationUser>(
+                new UserStore<ApplicationUser>(context));
+            // Set user manager password validator
+            userManager.PasswordValidator = new PasswordValidator
+            {
+                RequiredLength = 1,
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireNonLetterOrDigit = false,
+                RequireUppercase = false,
+            };
+            // Create user object
+            var admin = new ApplicationUser
+            {
+                UserName = email,
+                FullName = fullName,
+                Email = email,
+            };
+            // create user
+            var result = userManager.Create(admin, password);
+            // validate result
+            if (!result.Succeeded)
+            {
+                throw new Exception(string.Join(";", result.Errors));
+            }
+        }
+        private void SetRoleToUser(EventSpotDbContext context, string email, string role)
+        {
+            var userManager = new UserManager<ApplicationUser>(
+                new UserStore<ApplicationUser>(context));
+
+            var user = context.Users.Where(u => u.Email == email).First();
+
+            var result = userManager.AddToRole(user.Id, role);
+
+            if (!result.Succeeded)
+            {
+                throw new Exception(string.Join(";", result.Errors));
             }
         }
     }

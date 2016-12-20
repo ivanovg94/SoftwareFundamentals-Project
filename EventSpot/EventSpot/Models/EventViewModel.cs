@@ -8,7 +8,7 @@ namespace EventSpot.Models
 {
     public class EventViewModel
     {
-        
+
         public int Id { get; set; }
 
         [Required]
@@ -16,6 +16,8 @@ namespace EventSpot.Models
         public string EventName { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EventDate { get; set; }
 
         [Required]
@@ -24,7 +26,21 @@ namespace EventSpot.Models
         public string EventDescription { get; set; }
 
         public string OrganizerId { get; set; }
-        
+
+        public int CategoryId { get; set; }
+
+        public List<Category> Categories { get; set; }
+
+        public int CityId { get; set; }
+
+        public List<City> Cities { get; set; }
+
+        public string Tags { get; set; }
+
+        public ICollection<Event> Events { get; set; }
+
+
+
         [Display(Name = "EventPhoto")]
         public byte[] EventPhoto { get; set; }
 

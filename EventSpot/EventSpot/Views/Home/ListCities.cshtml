@@ -1,0 +1,23 @@
+﻿++
+
+@{
+    ViewBag.Title = "List";
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var city in Model)
+        {
+            <div class="label label-default text-center text-uppercase">
+                <p>
+                    
+                        @Html.ActionLink(string.Format($"{city.Name} ({city.Events.Count})"),
+                        "ListEventsByCity", "Home", new { @cityId = city.Id }, null)
+                   
+                  
+                </p>
+            </div>
+        }
+    </div>
+</div>
+<hr />

@@ -4,7 +4,6 @@
 @{
     ViewBag.Title = "Details";
 }
-
 <div class="container">
     <article>
         <div class="jumbotron">
@@ -22,7 +21,7 @@
 
             <div class="well">
 
-                Model.EventDescription
+                @Model.EventDescription
             </div>
 
             <div class="pull-left">
@@ -34,18 +33,13 @@
 
                 @*@Model.Attendant.Count();*@
 
-
-
-                @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
-
-
             </div>
             <div class="pull-right">
                 @if (User.IsInRole("Admin") || Model.IsOrganizer(User.Identity.Name))
             {
                     @Html.ActionLink("Edit", "Edit", "Event", new { @id = Model.Id }, new { @class = "btn btn-success btn-xs" })
                     @Html.ActionLink("Delete", "Delete", "Event", new { @id = Model.Id }, new { @class = "btn btn-danger btn-xs" })
-                }
+            }
                 @Html.ActionLink("Back", "Main", "Event", null, new { @class = "btn btn-default btn-xs" })
             </div>
             <div class="col-sm-8">
