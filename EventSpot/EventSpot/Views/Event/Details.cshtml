@@ -29,8 +29,8 @@
                     Organized by:  @Model.Organizer.FullName
                 </small>
 
-                @*@Html.ActionLink("Attend", "AttendantCount", "EventController", new { @class = "btn btn-default btn-xs" })*@
-
+                @Html.ActionLink("Attend Event", "Attend", "EventController", new {@id=Model.Id} )
+                @Model.Attends
                 @*@Model.Attendant.Count();*@
 
             </div>

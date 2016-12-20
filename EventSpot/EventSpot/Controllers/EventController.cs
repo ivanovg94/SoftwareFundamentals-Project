@@ -120,7 +120,7 @@ namespace EventSpot.Controllers
                         .First()
                         .Id;
 
-
+                    
                     var events = new Event(organizerId, model.EventName,
                         model.EventDescription, model.EventDate,
                         model.StartTime, model.CategoryId, model.CityId);
@@ -128,7 +128,7 @@ namespace EventSpot.Controllers
                     this.SetEventTags(events, model, database);
                     //Set Event Organizer
                     events.OrganizerId = organizerId;
-
+                    events.Attends = 1;
                     events.EventPhoto = imageData;
 
                     //!
@@ -337,6 +337,35 @@ namespace EventSpot.Controllers
 
             return isAdmin || isOrganizer;
         }
+
+
+        public ActionResult Attend(int? id)
+        {
+
+            using (var database = new EventSpotDbContext())
+            {
+                //Get article from database
+                var events = database.Events
+                    .FirstOrDefault(a => a.Id == id);
+
+                if (events == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                events.Attends += 1;
+                database.SaveChanges();
+            }
+
+
+            return RedirectToAction("Main");
+        }
+
+
+
+
+
+
 
 
 

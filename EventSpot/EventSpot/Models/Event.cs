@@ -73,7 +73,7 @@ namespace EventSpot.Models
         public byte[] EventPhoto { get; set; }
 
         
-     //   public ICollection<string> Attendant { get; set; }
+        public int Attends { get; set; }
 
         public bool IsOrganizer(string name)
         {
