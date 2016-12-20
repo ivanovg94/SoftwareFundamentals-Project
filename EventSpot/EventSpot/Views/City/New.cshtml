@@ -21,12 +21,13 @@
 <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Cities<span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
-        <li>
+        
             @foreach (var city in Model)
             {
-                @Html.ActionLink(string.Format($"{city.Name} ({city.Events.Count})"),
+                <li>@Html.ActionLink(string.Format($"{city.Name} ({city.Events.Count})"),
                              "ListEventsByCity", "Home", new { @cityId = city.Id }, null)
-            }
         </li>
+            }
+        
     </ul>
 </li>

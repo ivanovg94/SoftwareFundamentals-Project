@@ -45,16 +45,17 @@ namespace EventSpot.Controllers
             }
         }
 
-        public ActionResult ListEvents(int? categoryId)
+        public ActionResult ListEvents(int? id)
         {
-            if (categoryId == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             using (var database = new EventSpotDbContext())
             {
                 var events = database.Events
-                    .Where(a => a.CategoryId == categoryId)
+                    .Where(a => a.CategoryId == id)
                     .Include(a => a.Organizer)
                     .Include(a => a.Tags)
                     .ToList();

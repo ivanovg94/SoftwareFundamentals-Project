@@ -12,7 +12,7 @@
                 <p>
                     <h2>
                         @Html.ActionLink(string.Format($"{category.Name} ({category.Events.Count})"),
-                        "ListEvents", "Home", new { @categoryId = category.Id }, null)
+                        "ListEvents", "Home", new { id = category.Id }, null)
                 </h2>
             </p>
         </div>

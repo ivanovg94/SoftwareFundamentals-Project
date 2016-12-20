@@ -68,8 +68,15 @@ namespace EventSpot.Controllers
         [Authorize]
         public ActionResult Create()
         {
+            
             using (var database = new EventSpotDbContext())
             {
+
+                if (User.IsInRole("Attendant"))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                }
+
                 var model = new EventViewModel();
                 model.Categories = database.Categories
                     .OrderBy(c => c.Name)
@@ -186,6 +193,11 @@ namespace EventSpot.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
                 }
 
+                if (User.IsInRole("Attendant"))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                }
+
                 ViewBag.TagsString = string.Join(", ", events.Tags.Select(t => t.Name));
 
                 if (events == null)
@@ -245,6 +257,11 @@ namespace EventSpot.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
                 }
+
+                if (User.IsInRole("Attendant"))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                }
                 //Check if event exists
                 if (events == null)
                 {
@@ -256,6 +273,7 @@ namespace EventSpot.Controllers
                 model.Id = events.Id;
                 model.EventName = events.EventName;
                 model.EventDate = events.EventDate;
+                model.StartTime = events.StartTime;
                 model.EventDescription = events.EventDescription;
                 model.CategoryId = events.CategoryId;
                 model.Categories = database.Categories
@@ -289,6 +307,7 @@ namespace EventSpot.Controllers
 
                     events.EventName = model.EventName;
                     events.EventDate = model.EventDate;
+                    events.StartTime = model.StartTime;
                     events.EventDescription = model.EventDescription;
                     events.CategoryId = model.CategoryId;
                     events.CityId = model.CityId;
