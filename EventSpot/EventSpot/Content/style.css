@@ -25,11 +25,11 @@ body {
   font-family:'Baskerville Old Face';
   font-size:large;
 }
-/*change cattegories text*/
+/*change categories text*/
 .text-uppercase {
   text-transform: none;
 }
-/*change cattegories text color*/
+/*change categories text color*/
 a {
   color: #D3D3D3;
   text-decoration: none;
@@ -43,8 +43,8 @@ a {
   line-height: 1.5;
   border-radius: 3px;
 }
-/*change cattegories list color*/
-/*change cattegories drop down menu color*/
+/*change categories list color*/
+/*change categories drop down menu color*/
 .btn-info {
   color: #ffffff;
   background-color: #000000;
@@ -86,3 +86,85 @@ p {
   margin: 0 0 10px;
    font-family: 'Baskerville Old Face';
 }
+/*change Admin/Category color*/
+.btn-warning {
+  color: #ffffff;
+  background-color: #D41208;
+  border-color: #D41208;
+}
+
+/**/
+.btn-warning.disabled:hover,
+.btn-warning[disabled]:hover,
+fieldset[disabled] .btn-warning:hover,
+.btn-warning.disabled:focus,
+.btn-warning[disabled]:focus,
+fieldset[disabled] .btn-warning:focus,
+.btn-warning.disabled.focus,
+.btn-warning[disabled].focus,
+fieldset[disabled] .btn-warning.focus {
+  background-color: #D41208;
+  border-color: #790101;
+}
+/**/
+.btn-warning .badge {
+  color: #790101;
+  background-color: #ffffff;
+}
+/**/
+.label-warning {
+  background-color: #D41208;
+}
+/**/
+.alert-warning {
+  background-color: #D41208;
+  border-color: #f05800;
+  color: #ffffff;
+}
+/**/
+.progress-bar-warning {
+  background-color: #D41208;
+}
+/**/
+.list-group-item-warning {
+  color: #ffffff;
+  background-color: #D41208;
+}
+/**/
+.panel-warning > .panel-heading {
+  color: #ffffff;
+  background-color: #D41208;
+  border-color: #f05800;
+}
+/**/
+.text-warning,
+.text-warning:hover {
+  color: #D41208;
+}
+/**/
+
+.has-warning .form-control,
+.has-warning .form-control:focus,
+.has-warning .input-group-addon {
+  border-color: #D41208;
+}
+/**/
+a.list-group-item-warning.active {
+  background-color: #D41208;
+}
+/**/
+.table > thead > tr > td.warning,
+.table > tbody > tr > td.warning,
+.table > tfoot > tr > td.warning,
+.table > thead > tr > th.warning,
+.table > tbody > tr > th.warning,
+.table > tfoot > tr > th.warning,
+.table > thead > tr.warning > td,
+.table > tbody > tr.warning > td,
+.table > tfoot > tr.warning > td,
+.table > thead > tr.warning > th,
+.table > tbody > tr.warning > th,
+.table > tfoot > tr.warning > th {
+  background-color: #D41208;
+}
+

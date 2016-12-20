@@ -49,6 +49,7 @@ namespace EventSpot.Models
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
 
+
         public virtual Category Category { get; set; }
 
       
@@ -56,7 +57,8 @@ namespace EventSpot.Models
         [ForeignKey("City")]
         public int CityId { get; set; }
 
-        public virtual City City { get; set; }
+
+       public virtual City City { get; set; }
 
 
         public virtual ICollection<Tag> Tags

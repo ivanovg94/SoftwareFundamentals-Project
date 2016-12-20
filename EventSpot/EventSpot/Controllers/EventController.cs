@@ -32,7 +32,7 @@ namespace EventSpot.Controllers
                 var events = database.Events
                     .Include(o => o.Organizer)
                     .Include(o => o.Tags)
-                    .ToList();
+                   .ToList();
                 return View(events);
             }
         }
@@ -118,14 +118,26 @@ namespace EventSpot.Controllers
                         .First()
                         .Id;
 
+              
+ 
 
                     var events = new Event(organizerId, model.EventName,
                         model.EventDescription, model.EventDate,
                         model.StartTime, model.CategoryId, model.CityId);
 
+                    //
+                   //var cityName = database.Cities.Where(c => c.Id == events.CityId).
+                   //     First().
+                   //     Name;
+
                     this.SetEventTags(events, model, database);
+
+
                     //Set Event Organizer
                     events.OrganizerId = organizerId;
+
+                    //
+                   // events.City.Name = cityName;
 
                     events.EventPhoto = imageData;
 

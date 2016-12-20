@@ -13,7 +13,7 @@ namespace EventSpot.Models
 
         public City()
         {
-            this.events =new  HashSet<Event>();
+            this.events = new  HashSet<Event>();
         }
 
         [Key]

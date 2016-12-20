@@ -1,5 +1,5 @@
 ﻿@model EventSpot.Models.Event
-@{
+   @{
     ViewBag.Title = "Details";
 }
 
@@ -11,18 +11,22 @@
                 <h3>
                     @Model.EventName
                 </h3>
+                
                 <h5>
                     @Model.EventDate.ToShortDateString()
                     @Model.StartTime
-                </h5>
+                        </h5>
+               
             </header>
-            
+         
 
                 <div class="well">
                     @Model.EventDescription
-                
+               
             </div>
             <div class="pull-left">
+           
+
                 <small class="author">
                     Organized by:  @Model.Organizer.FullName
                 </small>
