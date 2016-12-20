@@ -56,6 +56,7 @@ namespace EventSpot.Controllers
                 var events = database.Events
                     .Where(a => a.CategoryId == categoryId)
                     .Include(a => a.Organizer)
+                    .Include(a => a.Tags)
                     .ToList();
 
                 return View(events);

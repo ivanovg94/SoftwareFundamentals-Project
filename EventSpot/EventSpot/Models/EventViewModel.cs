@@ -35,6 +35,8 @@ namespace EventSpot.Models
 
         public List<City> Cities { get; set; }
 
+        public string Tags { get; set; }
+
         public ICollection<Event> Events { get; set; }
 
 

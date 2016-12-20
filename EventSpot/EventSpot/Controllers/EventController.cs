@@ -9,7 +9,7 @@ using System.IO;
 using System.Text;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
-
+using System;
 
 namespace EventSpot.Controllers
 {
@@ -31,6 +31,7 @@ namespace EventSpot.Controllers
                 //Get Events from DB
                 var events = database.Events
                     .Include(o => o.Organizer)
+                    .Include(o => o.Tags)
                     .ToList();
                 return View(events);
             }
@@ -51,6 +52,7 @@ namespace EventSpot.Controllers
                 var events = database.Events
                     .Where(e => e.Id == id)
                     .Include(o => o.Organizer)
+                    .Include(o => o.Tags)
                     .First();
 
                 if (events == null)
@@ -121,7 +123,7 @@ namespace EventSpot.Controllers
                         model.EventDescription, model.EventDate,
                         model.StartTime, model.CategoryId, model.CityId);
 
-
+                    this.SetEventTags(events, model, database);
                     //Set Event Organizer
                     events.OrganizerId = organizerId;
 
@@ -163,12 +165,16 @@ namespace EventSpot.Controllers
                 var events = database.Events
                     .Where(a => a.Id == id)
                     .Include(a => a.Organizer)
+                    .Include(a => a.Category)
+                    .Include(a => a.City)
                     .First();
 
                 if (!IsOrganizerAuthorizedToEdit(events))
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
                 }
+
+                ViewBag.TagsString = string.Join(", ", events.Tags.Select(t => t.Name));
 
                 if (events == null)
                 {
@@ -247,6 +253,8 @@ namespace EventSpot.Controllers
                 model.Cities = database.Cities
                     .OrderBy(c => c.Name)
                     .ToList();
+                model.Tags = string.Join(", ", events.Tags.Select(t => t.Name));
+
                 //Pass the view model to view
                 return View(model);
             }
@@ -272,7 +280,7 @@ namespace EventSpot.Controllers
                     events.EventDescription = model.EventDescription;
                     events.CategoryId = model.CategoryId;
                     events.CityId = model.CityId;
-
+                    this.SetEventTags(events, model, database);
                     database.Entry(events).State = EntityState.Modified;
                     database.SaveChanges();
 
@@ -282,6 +290,30 @@ namespace EventSpot.Controllers
             }
             return View(model);
         }
+
+        private void SetEventTags(Event events, EventViewModel model, EventSpotDbContext database)
+        {
+            //Split tags
+            var tagsSplitter = model.Tags
+                .Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            //Clear current article tags
+            events.Tags.Clear();
+            //Set new article tags
+            foreach (var tagString in tagsSplitter)
+            {
+                //Get tag from db by its name
+                Tag tag = database.Tags.FirstOrDefault(t => t.Name.Equals(tagString));
+                //if the tag is null,create new tag
+                if (tag == null)
+                {
+                    tag = new Tag() { Name = tagString };
+                    database.Tags.Add(tag);
+                }
+                //Add tag to article tags
+                events.Tags.Add(tag);
+            }
+        }
+
         private bool IsOrganizerAuthorizedToEdit(Event events)
         {
             bool isAdmin = this.User.IsInRole("Admin");
