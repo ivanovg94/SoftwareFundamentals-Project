@@ -136,5 +136,15 @@ namespace EventSpot.Controllers.Admin
                 return RedirectToAction("Index");
             }
         }
+
+        [ChildActionOnly]
+        public ActionResult GetNavbarCities()
+        {
+            using (var db = new EventSpotDbContext())
+            {
+                var navbarCities = db.Cities.ToList();
+                return PartialView("_NavbarCitiesDropdown", navbarCities);
+            }
+        }
     }
 }

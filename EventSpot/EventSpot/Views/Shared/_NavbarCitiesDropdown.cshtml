@@ -1,0 +1,9 @@
+﻿
+@model List<EventSpot.Models.City>
+
+<ul class="dropdown-menu" role="menu">
+    @foreach (var city in Model)
+    {
+        <li>@Html.ActionLink(city.Name, "ListEvents", "Home", new { id = city.Id }, null)</li>
+    }
+</ul>
