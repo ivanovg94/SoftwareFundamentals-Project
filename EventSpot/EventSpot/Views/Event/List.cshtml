@@ -3,7 +3,7 @@
     ViewBag.Title = "List";
 }
 
-<br />
+
 <div class="container">
     <div class="row">
         @foreach (var events in Model)
@@ -14,38 +14,40 @@
                     <article>
                         <header>
                             <h3>
-                                  @Html.ActionLink(@events.EventName, "Details", "Event", new { @id = events.Id }, null)
+                                @Html.ActionLink(@events.EventName, "Details", "Event", new { @id = events.Id }, null)
                             </h3>
                             <h5>
                                 @events.EventDate.ToShortDateString()
                                 @events.StartTime
+                              
+
                             </h5>
+                           
                         </header>
 
-                        <p>
-                            @events.EventDescription
-                        </p>
+
                         <footer>
                             <div class="pull-left">
                                 @foreach (var tag in events.Tags)
                                 {
-                                    @Html.ActionLink(tag.Name, "List", "Tag", new { @id = tag.Id
+                                    @Html.ActionLink(tag.Name, "List", "Tag", new
+                               {
+                                   @id = tag.Id
                                }, new { @class = "btn btn-default btn-xs" })
                                 }
-                                </div>
+                            </div>
                             <small class="author">
                                 Organized by: @events.Organizer.FullName
                             </small>
+
                             <div class="pull-right">
                                 @Html.ActionLink("Details", "Details", "Event", new { @id = events.Id }, new { @class = "btn btn-default btn-xs" })
                             </div>
                         </footer>
                     </article>
-                    <br />
+
                 </div>
             </div>
         }
     </div>
 </div>
-
-

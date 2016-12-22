@@ -32,7 +32,7 @@ namespace EventSpot.Controllers
                 var events = database.Events
                     .Include(o => o.Organizer)
                     .Include(o => o.Tags)
-                    .ToList();
+                   .ToList();
                 return View(events);
             }
         }
@@ -122,20 +122,26 @@ namespace EventSpot.Controllers
                         .First()
                         .Id;
 
-                    
                     var events = new Event(organizerId, model.EventName,
                         model.EventDescription, model.EventDate,
                         model.StartTime, model.CategoryId, model.CityId);
 
+          
                     this.SetEventTags(events, model, database);
+
+
                     //Set Event Organizer
                     events.OrganizerId = organizerId;
+
+
+               
+
+
                     events.Attends = 1;
+
                     events.EventPhoto = imageData;
 
-                    //!
-                    //events.Attendant.Add(User.Identity.Name);
-
+   
                     //Save event in DB
 
                     database.Events.Add(events);
@@ -361,38 +367,6 @@ namespace EventSpot.Controllers
         }
 
         
-
-
-
-
-
-
-
-
-        ////POST: Event/AttendantCount
-        //[Authorize]
-        //[HttpPost]
-        //public ActionResult AttendantCount(int? Id)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var attendantName = User.Identity.Name;
-
-        //        using (var database = new EventSpotDbContext())
-        //        {
-        //            //Get article from database
-        //            var events = database.Events
-        //                .FirstOrDefault(a => a.Id == Id);
-
-        //            events.Attendant.Add(attendantName);
-
-
-        //            database.Entry(events).State = EntityState.Modified;
-        //            database.SaveChanges();
-        //        }
-        //    }
-        //    return RedirectToAction("Details");
-        //}
 
 
 
