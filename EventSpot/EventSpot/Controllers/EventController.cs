@@ -339,8 +339,7 @@ namespace EventSpot.Controllers
 
             return isAdmin || isOrganizer;
         }
-
-
+        
         public ActionResult Attend(int? id)
         {
             using (var database = new EventSpotDbContext())
@@ -353,6 +352,7 @@ namespace EventSpot.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
+                
                 events.Attends += 1;
                 database.SaveChanges();
 
@@ -360,6 +360,7 @@ namespace EventSpot.Controllers
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
+        
 
 
 

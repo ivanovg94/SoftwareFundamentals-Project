@@ -45,13 +45,17 @@ namespace EventSpot.Models
         [RegularExpression(@"([01]?[0-9]|2[0-3]):[0-5][0-9]", ErrorMessage = "Invalid Time.")]
         public string StartTime { get; set; }
 
+
+       
         public string EventDescription { get; set; }
 
+       
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
 
-        public virtual Category Category { get; set; }     
-        
+        public virtual Category Category { get; set; }
+
+       
         [ForeignKey("City")]
         public int CityId { get; set; }
 

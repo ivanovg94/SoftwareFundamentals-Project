@@ -1,8 +1,6 @@
 ﻿@model EventSpot.Models.EventViewModel
-
-
-@{
-    ViewBag.Title = "Create";
+   @{
+        ViewBag.Title = "Create";
 }
 
 <div class="container">
@@ -50,10 +48,8 @@
                 </div>
             </div>
       
-
-   
             <div class="form-group">
-                @Html.LabelFor(m => m.CategoryId, new { @class = "col-sm-4 control-label" })
+                @Html.LabelFor(m => m.Category, new { @class = "col-sm-4 control-label" })
                 <div class="dropdown col-sm-4">
                     @Html.DropDownListFor(m => m.CategoryId,
                         new SelectList(Model.Categories, "Id", "Name"),
@@ -62,7 +58,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.CityId, new { @class = "col-sm-4 control-label" })
+                @Html.LabelFor(m => m.City, new { @class = "col-sm-4 control-label" })
                 <div class="dropdown col-sm-4">
                     @Html.DropDownListFor(m => m.CityId,
                         new SelectList(Model.Cities, "Id", "Name"),

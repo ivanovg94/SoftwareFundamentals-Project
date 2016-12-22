@@ -29,9 +29,13 @@ namespace EventSpot.Models
 
         public int CategoryId { get; set; }
 
+        public virtual Category Category { get; set; }
+
         public List<Category> Categories { get; set; }
 
         public int CityId { get; set; }
+
+        public virtual City City { get; set; }
 
         public List<City> Cities { get; set; }
 

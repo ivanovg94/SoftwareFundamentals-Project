@@ -45,10 +45,20 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.CategoryId, new { @class = "control-label col-sm-4" })
+                @Html.LabelFor(m => m.Category, new { @class = "control-label col-sm-4" })
                 <div class="dropdown col-sm-4">
-                    @Html.DropDownListFor(m => m.CategoryId,
+                    @Html.DropDownListFor(m => m.Category.Name,
                         new SelectList(Model.Categories, "Id", "Name", Model.CategoryId),
+                        new { @class = "btn btn-info col-sm-12" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.City, new { @class = "col-sm-4 control-label" })
+                <div class="dropdown col-sm-4">
+                    @Html.DropDownListFor(m => m.City.Name,
+                        new SelectList(Model.Cities, "Id", "Name", Model.CityId),
                         new { @class = "btn btn-info col-sm-12" })
                 </div>
             </div>
@@ -57,15 +67,6 @@
                 @Html.LabelFor(m => m.Tags, new { @class = "control-label col-sm-4" })
                 <div class="col-sm-4">
                     @Html.TextBoxFor(m => m.Tags, new { @class = "form-control col-sm-4" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.CityId, new { @class = "col-sm-4 control-label" })
-                <div class="dropdown col-sm-4">
-                    @Html.DropDownListFor(m => m.CityId,
-                        new SelectList(Model.Cities, "Id", "Name", Model.CityId),
-                        new { @class = "btn btn-info col-sm-12" })
                 </div>
             </div>
 

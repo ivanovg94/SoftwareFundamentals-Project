@@ -15,12 +15,9 @@
                             @Html.ActionLink(@events.EventName, "Details", "Event", new { @id = events.Id }, null)
                         </h2>
                     </header>
-                    <p>
-                        @events.EventDescription
-                    </p>
-                    <footer class="pull-right">
+                    <footer class="pull-left">
                         <small class="author">
-                            organizer @events.Organizer.FullName
+                            Organized By: @events.Organizer.FullName
                         </small>
                     </footer>
                 </article>

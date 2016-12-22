@@ -42,7 +42,7 @@
             <br />
             @if (User.IsInRole("Attendant"))
             {
-                @Html.ActionLink((" Attend Event! - " + (@Model.Attends.ToString())), "Attend", "Event", new { id = Model.Id }, new { @class = "btn btn-primary btn-xs" })
+                @Html.ActionLink((" Attend Event! " + (@Model.Attends.ToString())), "Attend", "Event", new { id = Model.Id }, new { @class = "btn btn-primary btn-xs" })
             }
         </div>
         <div class="col-sm-8">
