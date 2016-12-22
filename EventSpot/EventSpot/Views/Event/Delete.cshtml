@@ -40,16 +40,16 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.CategoryId, new { @class = "col-sm-4 control-label" })
+                @Html.LabelFor(m => m.Category, new { @class = "col-sm-4 control-label" })
                 <div class="col-sm-4">
-                    @Html.TextBoxFor(m => m.CategoryId, new { @class = "form-control", @readonly = "readonly" })        
+                    @Html.TextBoxFor(m => m.Category.Name, new { @class = "form-control", @readonly = "readonly" })        
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.CityId, new { @class = "col-sm-4 control-label" })
+                @Html.LabelFor(m => m.City, new { @class = "col-sm-4 control-label" })
                 <div class="dropdown col-sm-4">
-                    @Html.TextAreaFor(m => m.CityId, new { @class = "form-control", @readonly = "readonly"})
+                    @Html.TextAreaFor(m => m.City.Name, new { @class = "form-control", @readonly = "readonly"})
                 </div>
             </div>
 

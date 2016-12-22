@@ -16,30 +16,45 @@
                     @Model.StartTime
                 </h5>
             </header>
-            
 
-                <div class="well">
-                    @Model.EventDescription
-                
+
+            <div class="well">
+                @Model.EventDescription
+
             </div>
+            <h3>
+                @Model.CityId
+            </h3>
             <div class="pull-left">
                 <small class="author">
                     Organized by:  @Model.Organizer.FullName
                 </small>
             </div>
-            <div class="pull-right">
-        
-            @if (User.IsInRole("Admin") || Model.IsOrganizer(User.Identity.Name))
+
+            @*@foreach (var comment in Model.Comments)
             {
+                <div>@comment.Content</div>
+                <small class="author">
+                    --author @comment.Author.FullName
+                </small>
+            }*@
+            @*@{Html.RenderAction("Create", "Comment", new { eventId = Model.Id })};*@      
+                      
+
+            <div class="pull-right">
+
+
+                @if (User.IsInRole("Admin") || Model.IsOrganizer(User.Identity.Name))
+                {
                     @Html.ActionLink("Edit", "Edit", "Event", new { @id = Model.Id }, new { @class = "btn btn-success btn-xs" })
                     @Html.ActionLink("Delete", "Delete", "Event", new { @id = Model.Id }, new { @class = "btn btn-danger btn-xs" })
-            }
+                }
                 @Html.ActionLink("Back", "Main", "Event", null, new { @class = "btn btn-default btn-xs" })
             </div>
             <div class="col-sm-8">
                 <img src="@Url.Action("DisplayImg", new { Id = Model.Id }) " class="img-thumbnail" />
             </div>
         </div>
-     
+
     </article>
 </div>

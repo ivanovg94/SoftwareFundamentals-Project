@@ -39,8 +39,10 @@ namespace EventSpot.Models
 
         public ICollection<Event> Events { get; set; }
 
-
         [Display(Name = "EventPhoto")]
         public byte[] EventPhoto { get; set; }
+
+        //    public ICollection<string> Attendant { get; set; }
+
     }
 }
