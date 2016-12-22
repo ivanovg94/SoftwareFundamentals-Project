@@ -42,5 +42,7 @@ namespace EventSpot.Models
 
         [Display(Name = "EventPhoto")]
         public byte[] EventPhoto { get; set; }
+
+
     }
 }

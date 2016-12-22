@@ -21,7 +21,7 @@
 
             }
            
-            @if (!User.IsInRole("Attendant"))
+            @if (User.IsInRole("Admin") || (User.IsInRole("Organizer")))
             {
             <li>
                 @Html.ActionLink("Create", "Create", "Event")
