@@ -18,34 +18,37 @@
                 </h5>
             </header>
 
-
             <div class="well">
-
                 @Model.EventDescription
             </div>
-
+           
             <div class="pull-left">
                 <small class="author">
-                    Organized by:  @Model.Organizer.FullName
+                    Organizer: @Model.Organizer.FullName
                 </small>
-
-                @Html.ActionLink("Attend Event", "Attend", "EventController", new {@id=Model.Id} )
-                @Model.Attends
-                @*@Model.Attendant.Count();*@
-
             </div>
-            <div class="pull-right">
+            
+        </div>
+        
+        <div class="pull-right">
+          
+
                 @if (User.IsInRole("Admin") || Model.IsOrganizer(User.Identity.Name))
             {
-                    @Html.ActionLink("Edit", "Edit", "Event", new { @id = Model.Id }, new { @class = "btn btn-success btn-xs" })
-                    @Html.ActionLink("Delete", "Delete", "Event", new { @id = Model.Id }, new { @class = "btn btn-danger btn-xs" })
+                @Html.ActionLink("Edit", "Edit", "Event", new {@id = Model.Id}, new {@class = "btn btn-success btn-xs"})
+                @Html.ActionLink("Delete", "Delete", "Event", new {@id = Model.Id}, new {@class = "btn btn-danger btn-xs"})
             }
-                @Html.ActionLink("Back", "Main", "Event", null, new { @class = "btn btn-default btn-xs" })
-            </div>
-            <div class="col-sm-8">
-                <img src="@Url.Action("DisplayImg", new { Id = Model.Id }) " class="img-thumbnail" alt=""/>
-            </div>
+            @Html.ActionLink("Back", "Main", "Event", null, new { @class = "btn btn-default btn-xs" })
+            <br/>
+              @if (User.IsInRole("Attendant"))
+            {
+                @Html.ActionLink((" Attend Event! - " + (@Model.Attends.ToString())), "Attend", "Event", new { id = Model.Id }, new { @class = "btn btn-primary btn-xs" })
+            }
         </div>
+            <div class="col-sm-8">
+                <img src="@Url.Action("DisplayImg", new { Id = Model.Id }) " class="img-thumbnail" alt="" />
+            </div>
+       
 
     </article>
 </div>

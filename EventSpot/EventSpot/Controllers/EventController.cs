@@ -341,7 +341,6 @@ namespace EventSpot.Controllers
 
         public ActionResult Attend(int? id)
         {
-
             using (var database = new EventSpotDbContext())
             {
                 //Get article from database
@@ -352,13 +351,11 @@ namespace EventSpot.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-
                 events.Attends += 1;
                 database.SaveChanges();
+
             }
-
-
-            return RedirectToAction("Main");
+            return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
 
@@ -394,7 +391,7 @@ namespace EventSpot.Controllers
         //    return RedirectToAction("Details");
         //}
 
-      
+
 
 
     }
