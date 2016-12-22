@@ -99,11 +99,8 @@ namespace EventSpot.Controllers
         [HttpPost]
         public ActionResult Create(EventViewModel model)
         {
-
-
             if (ModelState.IsValid)
             {
-
                 // To convert the user uploaded Photo as Byte Array before save to DB 
                 byte[] imageData = null;
                 if (Request.Files.Count > 0)
@@ -115,9 +112,7 @@ namespace EventSpot.Controllers
                         imageData = binary.ReadBytes(poImgFile.ContentLength);
                     }
                 }
-
-
-
+                
                 //insert event in DB 
                 using (var database = new EventSpotDbContext())
                 {
@@ -127,7 +122,7 @@ namespace EventSpot.Controllers
                         .First()
                         .Id;
 
-
+                    
                     var events = new Event(organizerId, model.EventName,
                         model.EventDescription, model.EventDate,
                         model.StartTime, model.CategoryId, model.CityId);
@@ -135,13 +130,15 @@ namespace EventSpot.Controllers
                     this.SetEventTags(events, model, database);
                     //Set Event Organizer
                     events.OrganizerId = organizerId;
-
+                    events.Attends = 1;
                     events.EventPhoto = imageData;
+
+                    //!
+                    //events.Attendant.Add(User.Identity.Name);
 
                     //Save event in DB
 
                     database.Events.Add(events);
-
                     database.SaveChanges();
 
                     return RedirectToAction("Main");
@@ -342,6 +339,60 @@ namespace EventSpot.Controllers
 
             return isAdmin || isOrganizer;
         }
+
+
+        public ActionResult Attend(int? id)
+        {
+            using (var database = new EventSpotDbContext())
+            {
+                //Get article from database
+                var events = database.Events
+                    .FirstOrDefault(a => a.Id == id);
+
+                if (events == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                events.Attends += 1;
+                database.SaveChanges();
+
+            }
+            return Redirect(Request.UrlReferrer.PathAndQuery);
+        }
+
+
+
+
+
+
+
+
+
+        ////POST: Event/AttendantCount
+        //[Authorize]
+        //[HttpPost]
+        //public ActionResult AttendantCount(int? Id)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var attendantName = User.Identity.Name;
+
+        //        using (var database = new EventSpotDbContext())
+        //        {
+        //            //Get article from database
+        //            var events = database.Events
+        //                .FirstOrDefault(a => a.Id == Id);
+
+        //            events.Attendant.Add(attendantName);
+
+
+        //            database.Entry(events).State = EntityState.Modified;
+        //            database.SaveChanges();
+        //        }
+        //    }
+        //    return RedirectToAction("Details");
+        //}
+
 
 
 

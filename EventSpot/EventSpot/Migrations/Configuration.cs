@@ -21,7 +21,7 @@ namespace EventSpot.Migrations
         protected override void Seed(EventSpotDbContext context)
         {
             createRolesandUsers(context);
-          
+
             if (!context.Users.Any())
             {
                 this.CreateUser(context, "admin@admin.com", "Admin", "123");
@@ -36,11 +36,11 @@ namespace EventSpot.Migrations
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
 
-          //  creating first Admin Role and creating a default Admin User
+            //  creating first Admin Role and creating a default Admin User
 
 
 
-        if (!roleManager.RoleExists("Admin"))
+            if (!roleManager.RoleExists("Admin"))
             {
 
                 // first we create Admin rool   
@@ -51,7 +51,7 @@ namespace EventSpot.Migrations
 
             }
 
-          
+
 
 
             // creating Creating Manager role    
@@ -75,7 +75,7 @@ namespace EventSpot.Migrations
 
         }
 
- 
+
 
 
         private void CreateUser(EventSpotDbContext context, string email, string fullName, string password)
